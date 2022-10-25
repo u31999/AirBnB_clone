@@ -2,7 +2,6 @@
 
 ## Descriptions:
 
-- Command interpreter to manage your AirBnB objects.
 - This is the first step towards building AirBnB full web application clone.
 
 * This command interpreter is to manage the objects of the AirBnB web application:
