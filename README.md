@@ -20,11 +20,11 @@
 - Create the first abstracted storage engine of the project: File storage.
 - Create all unittests to validate all our classes and storage engine
 
-## Console usage:
-
-## Environment:
+## Environment
 
 This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
+
+## Console usage:
 
 - Interactive mode:
 
