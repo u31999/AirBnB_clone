@@ -4,7 +4,7 @@
 
 - This is the first step towards building AirBnB full web application clone.
 
-* This command interpreter is to manage the objects of the AirBnB web application:
+* This command interpreter (console) is to manage the objects of the AirBnB web application:
 
 - Create a new object (ex: a new User or a new Place)
 - Retrieve an object from a file, a database etc…
