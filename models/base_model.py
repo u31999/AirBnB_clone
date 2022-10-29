@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This module define a base class for all common attributes/methods for other classes
+This module define a base class for all
+common attributes/methods for other classes
 """
 from datetime import datetime
 import uuid
@@ -14,12 +15,14 @@ class BaseModel:
 
     Public instance attributes:
     id: BaseModel id
-    created_at: The creation datetime 
+    created_at: The creation datetime
     updated_at: The last update date time
 
     Public instance methods:
-    save(self): updates the public instance attribute updated_at with the current datetime
-    to_dict(self): returns a dictionary containing all keys/values of __dict__ of the instance
+    save(self): updates the public instance
+    attribute updated_at with the current datetime
+    to_dict(self): returns a dictionary containing
+    all keys/values of __dict__ of the instance
     """
 
     def __init__(self, *args, **kwargs):
