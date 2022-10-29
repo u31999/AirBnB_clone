@@ -1,53 +1,62 @@
 #!/usr/bin/python3
 """
-Contains the FileStorage class
+Test suite for file_storage engine
 """
-
-import json
-from models.amenity import Amenity
+import unittest
 from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
-
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+from models.engine.file_storage import FileStorage
+from models.__init__ import storage
 
 
-class FileStorage:
-    """serializes instances to a JSON file & deserializes back to instances"""
+class TestFileStorage(unittest.TestCase):
+    def test_private_attr(self):
+        base = BaseModel()
+        storage = FileStorage()
+        with self.assertRaises(AttributeError):
+            file_path = storage.file_path
+        with self.assertRaises(AttributeError):
+            file_path = storage.__file_path
+        with self.assertRaises(AttributeError):
+            file_path = storage.objects
+        with self.assertRaises(AttributeError):
+            file_path = storage.__objects
 
-    # string - path to the JSON file
-    __file_path = "file.json"
-    # dictionary - empty but will store all objects by <class name>.id
-    __objects = {}
+        with self.assertRaises(AttributeError):
+            FileStorage.file_path
+        with self.assertRaises(AttributeError):
+            FileStorage.__file_path
+        with self.assertRaises(AttributeError):
+            FileStorage.objects
+        with self.assertRaises(AttributeError):
+            FileStorage.__objects
 
-    def all(self):
-        """returns the dictionary __objects"""
-        return self.__objects
+    def test_reload(self):
+        storage1 = FileStorage()
+        base1 = BaseModel({id: 8})
+        base1.save()
+        storage.save()
+        self.assertEqual(storage.reload(), None)
 
-    def new(self, obj):
-        """sets in __objects the obj with key <obj class name>.id"""
-        if obj is not None:
-            key = obj.__class__.__name__ + "." + obj.id
-            self.__objects[key] = obj
+    def test_a(self):
+        storage1 = FileStorage()
+        self.assertIsInstance(storage1.all(), dict)
 
-    def save(self):
-        """serializes __objects to the JSON file (path: __file_path)"""
-        json_objects = {}
-        for key in self.__objects:
-            json_objects[key] = self.__objects[key].to_dict()
-        with open(self.__file_path, 'w') as f:
-            json.dump(json_objects, f)
+    def test_b(self):
+        storage1 = FileStorage()
+        base = BaseModel()
+        storage1.new(base)
+        key = type(base).__name__ + '.' + base.id
+        self.assertEqual(storage1.all()[key], base)
 
-    def reload(self):
-        """deserializes the JSON file to __objects"""
-        try:
-            with open(self.__file_path, 'r') as f:
-                jo = json.load(f)
-            for key in jo:
-                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
-            pass
+    """
+    def test_a_all(self):
+        all_objs = storage.all()
+        self.assertDictEqual(storage.all(), {})
+    def test_z_all(self):
+        base = BaseModel()
+        base.save()
+        key = 'BaseModel.' + base.id
+        self.assertIsInstance(storage.all(), dict)
+    def test_reload(self):
+        self.assertEqual(storage.reload(), None)
+    """
