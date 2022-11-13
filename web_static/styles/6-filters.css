@@ -1,0 +1,46 @@
+section.filters div.locations,
+section.filters div.amenities {
+    position: relative;
+}
+
+ul.popover {
+    display: none;
+    background-color:  #FAFAFA;
+    border: solid #DDDDDD 1px;
+    border-radius: 4px;
+    position: absolute;
+    margin: 0px;
+    width: 100%;    
+    right: 0;
+    transform: translate(0, 0);
+    padding-left: 30px;
+    opacity: 0;
+    transition: all 1000ms ease-in;
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+ul.popover ul {
+    list-style: none;
+}
+ul.popover-amenities {
+
+    left: 0px !important;
+
+}
+
+section.filters div.locations:hover ul.popover,
+section.filters div.amenities:hover ul.popover {
+    display: block;
+    animation: fade-opacity 400ms linear forwards;
+    
+}
+
+@keyframes fade-opacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
